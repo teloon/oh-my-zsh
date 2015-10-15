@@ -51,11 +51,12 @@ export PIP_REQUIRE_VIRTUALENV=true
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git, common-aliases, heroku)
+plugins=(git git-prompt common-aliases heroku)
 
 # User configuration
 
 export PATH="/Users/v/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+PATH="/Applications/Postgres.app/Contents/MacOS/:$PATH:$PATH"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -84,9 +85,4 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias v='vim'
-alias venv-default='source ~/virtualenvs/default-env/bin/activate'
-alias venv-flask='source ~/virtualenvs/test-flask/bin/activate'
-
-# enable virtualenv from pip
-export PIP_REQUIRE_VIRTUALENV=true
+# see git alias in plugins/git/git.plugin.zsh
