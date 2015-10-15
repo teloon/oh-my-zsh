@@ -111,3 +111,5 @@ else
     fi
   fi
 fi
+
+source ~/virtualenvs/default-env/bin/activate
