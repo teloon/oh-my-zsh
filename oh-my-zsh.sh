@@ -116,7 +116,9 @@ fi
 # see git alias in plugins/git/git.plugin.zsh
 alias v='vim'
 alias venv-default='source ~/virtualenvs/default-env/bin/activate'
-alias venv-flask='source ~/virtualenvs/test-flask/bin/activate'
+alias venv-tank='source ~/virtualenvs/tank-service/bin/activate'
+alias venv-tank-i='source ~/virtualenvs/tank-service-internal/bin/activate'
+
 # Detect which `ls` flavor is in use
 if ls --color > /dev/null 2>&1; then # GNU `ls`
 	colorflag="--color"
@@ -141,8 +143,11 @@ alias localip="ipconfig getifaddr en1"
 alias ips="ifconfig -a | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0-9]\+\)\|[a-fA-F0-9:]\+\)' | awk '{ sub(/inet6? (addr:)? ?/, \"\"); print }'"
 # Lock the screen (when going AFK)
 alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
+# git
+alias gcaa='git commit -a --amend'
+alias tw-ssh='ssh -i /Users/v/.keys/tankwallet-service-key.pem'
 
-source ~/virtualenvs/default-env/bin/activate
+source ~/virtualenvs/tank-service/bin/activate
 
 # enable virtualenv from pip
 export PIP_REQUIRE_VIRTUALENV=true
