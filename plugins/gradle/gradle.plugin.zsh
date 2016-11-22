@@ -1,4 +1,3 @@
-#!zsh
 ##############################################################################
 # A descriptive listing of core Gradle commands
 ############################################################################
@@ -54,45 +53,63 @@ function _gradle_arguments() {
 
 
 ##############################################################################
-# Are we in a directory containing a build.gradle file?
-############################################################################
-function in_gradle() {
-    if [[ -f build.gradle ]]; then
-        echo 1
-    fi
-}
-
-############################################################################## Examine the build.gradle file to see if its
-# timestamp has changed, and if so, regen
-# the .gradle_tasks cache file
+# Examine the build.gradle file to see if its timestamp has changed;
+# and if so, regenerate the .gradle_tasks cache file
 ############################################################################
 _gradle_does_task_list_need_generating () {
-  [ ! -f .gradletasknamecache ] && return 0;
-  [ build.gradle -nt .gradletasknamecache ] && return 0;
-  return 1;
+  [[ ! -f .gradletasknamecache ]] || [[ build.gradle -nt .gradletasknamecache ]]
 }
 
+##############
+# Parse the tasks from `gradle(w) tasks --all` into .gradletasknamecache
+# All lines in the output from gradle(w) that are between /^-+$/ and /^\s*$/
+# are considered to be tasks. If and when gradle adds support for listing tasks
+# for programmatic parsing, this method can be deprecated.
+##############
+_gradle_parse_tasks () {
+  lines_might_be_tasks=false
+  task_name_buffer=""
+  while read -r line; do
+    if [[ $line =~ ^-+$ ]]; then
+      lines_might_be_tasks=true
+      # Empty buffer, because it contains items that are not tasks
+      task_name_buffer=""
+    elif [[ $line =~ ^\s*$ ]]; then
+      if [[ "$lines_might_be_tasks" = true ]]; then
+        # If a newline is found, send the buffer to .gradletasknamecache
+        while read -r task; do
+          echo $task | awk '/[a-zA-Z0-9:-]+/ {print $1}'
+        done <<< "$task_name_buffer"
+        # Empty buffer, because we are done with the tasks
+        task_name_buffer=""
+      fi
+      lines_might_be_tasks=false
+    elif [[ "$lines_might_be_tasks" = true ]]; then
+      task_name_buffer="${task_name_buffer}\n${line}"
+    fi
+  done <<< "$1"
+}
 
 ##############################################################################
 # Discover the gradle tasks by running "gradle tasks --all"
 ############################################################################
 _gradle_tasks () {
-  if [ in_gradle ]; then
+  if [[ -f build.gradle ]]; then
     _gradle_arguments
     if _gradle_does_task_list_need_generating; then
-     gradle tasks --all | grep "^[ ]*[a-zA-Z0-9:]*\ -\ " | sed "s/ - .*$//" | sed "s/[\ ]*//" > .gradletasknamecache
+      _gradle_parse_tasks "$(gradle tasks --all)" > .gradletasknamecache
     fi
-    compadd -X "==== Gradle Tasks ====" `cat .gradletasknamecache`
+    compadd -X "==== Gradle Tasks ====" $(cat .gradletasknamecache)
   fi
 }
 
 _gradlew_tasks () {
-  if [ in_gradle ]; then
+  if [[ -f build.gradle ]]; then
     _gradle_arguments
     if _gradle_does_task_list_need_generating; then
-     ./gradlew tasks --all | grep "^[ ]*[a-zA-Z0-9:]*\ -\ " | sed "s/ - .*$//" | sed "s/[\ ]*//" > .gradletasknamecache
+      _gradle_parse_tasks "$(./gradlew tasks --all)" > .gradletasknamecache
     fi
-    compadd -X "==== Gradlew Tasks ====" `cat .gradletasknamecache`
+    compadd -X "==== Gradlew Tasks ====" $(cat .gradletasknamecache)
   fi
 }
 
@@ -102,13 +119,3 @@ _gradlew_tasks () {
 ############################################################################
 compdef _gradle_tasks gradle
 compdef _gradlew_tasks gradlew
-
-
-##############################################################################
-# Open questions for future improvements:
-# 1) Should 'gradle tasks' use --all or just the regular set?
-# 2) Should gradlew use the same approach as gradle?
-# 3) Should only the " - " be replaced with a colon so it can work
-#     with the richer descriptive method of _arguments?
-#     gradle tasks | grep "^[a-zA-Z0-9]*\ -\ " | sed "s/ - /\:/"
-#############################################################################
