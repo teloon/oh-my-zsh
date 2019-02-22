@@ -13,7 +13,8 @@ export PATH=$JAVA_HOME/bin:$PATH
 alias jdk7='export JAVA_HOME=$(/usr/libexec/java_home -v 1.7) && export PATH=$(/usr/libexec/java_home -v 1.7)/bin:$PATH' 
 alias jdk8='export JAVA_HOME=$(/usr/libexec/java_home -v 1.8) && export PATH=$(/usr/libexec/java_home -v 1.8)/bin:$PATH' 
 # edit this file
-alias zrc='vim ${HOME}/.oh-my-zsh/custom/zshrc/tracked.zshrc'
+alias zzrc='vim ${HOME}/.oh-my-zsh/custom/zshrc/tracked.zshrc'
+alias zrc='vim ${HOME}/.local.zshrc'
 
 git config --global diff.tool vimdiff
 git config --global difftool.prompt false
