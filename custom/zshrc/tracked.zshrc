@@ -12,6 +12,8 @@ export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
 export PATH=$JAVA_HOME/bin:$PATH
 alias jdk7='export JAVA_HOME=$(/usr/libexec/java_home -v 1.7) && export PATH=$(/usr/libexec/java_home -v 1.7)/bin:$PATH' 
 alias jdk8='export JAVA_HOME=$(/usr/libexec/java_home -v 1.8) && export PATH=$(/usr/libexec/java_home -v 1.8)/bin:$PATH' 
+# edit this file
+alias zrc='vim ${HOME}/.oh-my-zsh/custom/zshrc/tracked.zshrc'
 
 git config --global diff.tool vimdiff
 git config --global difftool.prompt false
@@ -38,13 +40,14 @@ POWERLEVEL9K_BACKGROUND_JOBS_BACKGROUND='178'
 POWERLEVEL9K_NVM_BACKGROUND="238"
 POWERLEVEL9K_NVM_FOREGROUND="green"
 POWERLEVEL9K_CONTEXT_DEFAULT_FOREGROUND="blue"
+#POWERLEVEL9K_CONTEXT_TEMPLATE="%n@`hostname -f`"
 POWERLEVEL9K_DIR_WRITABLE_FORBIDDEN_FOREGROUND="015"
 POWERLEVEL9K_TIME_BACKGROUND='255'
 #POWERLEVEL9K_COMMAND_TIME_FOREGROUND='gray'
 POWERLEVEL9K_COMMAND_EXECUTION_TIME_BACKGROUND='245'
 POWERLEVEL9K_COMMAND_EXECUTION_TIME_FOREGROUND='black'
 POWERLEVEL9K_TIME_FORMAT="%D{%H:%M}"
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(root_indicator context dir dir_writable vcs)
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(root_indicator dir dir_writable vcs)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status background_jobs command_execution_time time)
 POWERLEVEL9K_SHOW_CHANGESET=true
 
