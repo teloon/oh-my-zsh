@@ -85,4 +85,6 @@ export SSH_KEY_PATH="~/.ssh/rsa_id"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 source $ZSH/custom/zshrc/tracked.zshrc
-source $ZSH/custom/zshrc/ignored.zshrc
+if [ -f "$HOME/.local.zshrc" ]; then
+  source "$HOME/.local.zshrc"
+fi
