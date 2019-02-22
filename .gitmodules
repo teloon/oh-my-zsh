@@ -1,6 +1,6 @@
 [submodule "custom/themes/powerlevel9k"]
 	path = custom/themes/powerlevel9k
 	url = https://github.com/bhilburn/powerlevel9k.git
-[submodule "custom/themes/k"]
-	path = custom/themes/k
+[submodule "custom/plugins/k"]
+	path = custom/plugins/k
 	url = https://github.com/supercrabtree/k
