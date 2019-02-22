@@ -1,7 +1,10 @@
 # custom files
-custom/
+custom/*
+custom/zshrc/ignored.zshrc
+!custom/*/
 !custom/plugins/example
 !custom/example.zsh
+!custom/zshrc/tracked.zshrc
 
 # temp files directories
 cache/

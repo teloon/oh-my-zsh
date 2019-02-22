@@ -118,16 +118,3 @@ else
   fi
 fi
 
-source ~/virtualenvs/tank-service/bin/activate
-
-# enable virtualenv from pip
-export PIP_REQUIRE_VIRTUALENV=true
-
-export JAVA_HOME=$(/usr/libexec/java_home)
-export EC2_HOME=/usr/local/ec2/ec2-api-tools-1.7.5.1
-export PATH=$PATH:$EC2_HOME/bin 
-
-function goinit() {
-    mkdir -p src bin pkg
-    export GOPATH=$PWD
-}
