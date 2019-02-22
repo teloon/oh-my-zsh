@@ -1,7 +1,7 @@
 # custom files
 custom/*
 custom/zshrc/ignored.zshrc
-!custom/*/
+custom/zshrc/ignored.zshrc
 !custom/plugins/example
 !custom/example.zsh
 !custom/zshrc/tracked.zshrc
